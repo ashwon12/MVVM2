@@ -6,6 +6,7 @@ import android.os.Bundle
 /**
  * api doc = https://developers.naver.com/docs/search/movie/ \
  * **/
+
 class MainActivity : AppCompatActivity() {
     private val clientId: String = "KPs1Fz7hGzcZRPFvViN7"
     private val clientSecret: String = "qm06FtUOJ8"
