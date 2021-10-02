@@ -4,22 +4,23 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.example.mvvm2.data.dto.Item
+import com.example.mvvm2.data.dto.ItemX
 import com.example.mvvm2.data.dto.SearchResponse
 import com.example.mvvm2.data.retrofit.RetrofitClient
 import com.example.mvvm2.data.retrofit.api.SearchAPI
 import retrofit2.Call
 import retrofit2.Response
 
+
 interface MovieViewModel {
-    val movieList : LiveData<Item>
+    val movieList : LiveData<List<ItemX>>
     fun getList(query : String)
 }
 
 class MovieViewModelIpl : ViewModel(), MovieViewModel {
 
-    private val _movieList : MutableLiveData<Item> = MutableLiveData()
-    override val movieList: LiveData<Item>
+    private val _movieList : MutableLiveData<List<ItemX>> = MutableLiveData()
+    override val movieList: LiveData<List<ItemX>>
         get() = _movieList
 
     override fun getList(query : String) {
@@ -31,17 +32,16 @@ class MovieViewModelIpl : ViewModel(), MovieViewModel {
                 call: Call<SearchResponse>,
                 response: Response<SearchResponse>
             ) {
-                Log.d("viewModel","getList success")
-                val responseBody = response.body()?.item
+                val responseBody = response.body()?.items
                 _movieList.postValue(responseBody)
+                Log.d("viewModel","getList success : $responseBody")
             }
 
             override fun onFailure(call: Call<SearchResponse>, t: Throwable) {
                 Log.d("viewModel","getList fail : ${t.message.toString()}")
             }
-
         })
-    }
 
+    }
 
 }

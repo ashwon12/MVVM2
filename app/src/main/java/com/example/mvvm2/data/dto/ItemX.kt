@@ -5,7 +5,7 @@ import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 @Serializable
-data class Item(
+data class ItemX(
     @SerialName("actor")
     val actor: String,
     @SerialName("director")

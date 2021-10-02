@@ -6,22 +6,14 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 data class SearchResponse(
-    @SerialName("description")
-    val description: String,
     @SerialName("display")
-    val display: String,
-    @SerialName("item")
-    val item: Item,
+    val display: Int,
+    @SerialName("items")
+    val items: List<ItemX>,
     @SerialName("lastBuildDate")
     val lastBuildDate: String,
-    @SerialName("link")
-    val link: String,
     @SerialName("start")
-    val start: String,
-    @SerialName("__text")
-    val text: String,
-    @SerialName("title")
-    val title: String,
+    val start: Int,
     @SerialName("total")
-    val total: String
+    val total: Int
 )
