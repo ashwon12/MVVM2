@@ -1,4 +1,4 @@
-package com.example.mvvm2
+package com.example.mvvm2.data.retrofit
 
 import android.util.Log
 import okhttp3.Interceptor
@@ -14,7 +14,7 @@ class RetrofitClient {
         fun getClient() : Retrofit? {
             Log.d("RetrofitClient", "getClient() called")
 
-            val baseUrl = "https://openapi.naver.com/v1/search/movie.json"
+            val baseUrl = "https://openapi.naver.com/v1/search/"
             val client = OkHttpClient.Builder()
                 .connectTimeout(100, TimeUnit.SECONDS)
                 .readTimeout(100,TimeUnit.SECONDS)
