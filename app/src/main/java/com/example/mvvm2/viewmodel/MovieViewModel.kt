@@ -1,6 +1,8 @@
 package com.example.mvvm2.viewmodel
 
 import android.util.Log
+import androidx.databinding.Bindable
+import androidx.databinding.ObservableField
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -12,20 +14,21 @@ import retrofit2.Call
 import retrofit2.Response
 
 
-interface MovieViewModel {
-    val movieList : LiveData<List<ItemX>>
-    fun getList(query : String)
+interface MovieViewModelIpl {
+    val movieList : LiveData<ArrayList<ItemX>>
+    fun getList()
 }
 
-class MovieViewModelIpl : ViewModel(), MovieViewModel {
+class MovieViewModel() : ViewModel(), MovieViewModelIpl {
 
-    private val _movieList : MutableLiveData<List<ItemX>> = MutableLiveData()
-    override val movieList: LiveData<List<ItemX>>
+    val query = ObservableField<String>()
+    private val _movieList : MutableLiveData<ArrayList<ItemX>> = MutableLiveData()
+    override val movieList: LiveData<ArrayList<ItemX>>
         get() = _movieList
 
-    override fun getList(query : String) {
+    override fun getList() {
         val instance = RetrofitClient.getClient()?.create(SearchAPI::class.java)
-        val call = instance?.getSearchResponse(query)
+        val call = instance?.getSearchResponse(query.get().toString())
 
         call?.enqueue(object : retrofit2.Callback<SearchResponse>{
             override fun onResponse(
@@ -41,7 +44,6 @@ class MovieViewModelIpl : ViewModel(), MovieViewModel {
                 Log.d("viewModel","getList fail : ${t.message.toString()}")
             }
         })
-
     }
 
 }

@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">MVVM2</string>
+    <string name="search_hint">검색어를 입력하세요</string>
+    <string name="serach_button">검색하기</string>
 </resources>
