@@ -1,4 +1,4 @@
-package com.example.mvvm2
+package com.example.mvvm2.ui.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
