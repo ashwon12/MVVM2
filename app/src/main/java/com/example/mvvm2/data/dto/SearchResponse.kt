@@ -9,7 +9,7 @@ data class SearchResponse(
     @SerialName("display")
     val display: Int,
     @SerialName("items")
-    val items: List<ItemX>,
+    val items: ArrayList<ItemX>?,
     @SerialName("lastBuildDate")
     val lastBuildDate: String,
     @SerialName("start")
