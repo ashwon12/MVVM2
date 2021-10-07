@@ -8,38 +8,32 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import java.util.concurrent.TimeUnit
 
-class RetrofitClient {
-    companion object{
-        private var retrofitClient : Retrofit? = null
+object RetrofitClient {
+    fun getClient() : Retrofit {
+        Log.d("RetrofitClient", "getClient() called")
 
-        fun getClient() : Retrofit? {
-            Log.d("RetrofitClient", "getClient() called")
+        val baseUrl = "https://openapi.naver.com/v1/search/"
 
-            val baseUrl = "https://openapi.naver.com/v1/search/"
-
-            val baseInterceptor : Interceptor = (Interceptor { chain ->
-                Log.d("RetrofitClient"," intercept() called")
-                val builder = chain.request().newBuilder()
-                    .addHeader("X-Naver-Client-Id","KPs1Fz7hGzcZRPFvViN7")
-                    .addHeader("X-Naver-Client-Secret","qm06FtUOJ8")
-                    .build()
-
-                chain.proceed(builder)
-            })
-
-            val client = OkHttpClient.Builder()
-                .connectTimeout(100, TimeUnit.SECONDS)
-                .readTimeout(100,TimeUnit.SECONDS)
-                .addInterceptor(baseInterceptor)
+        val baseInterceptor : Interceptor = (Interceptor { chain ->
+            Log.d("RetrofitClient"," intercept() called")
+            val builder = chain.request().newBuilder()
+                .addHeader("X-Naver-Client-Id","KPs1Fz7hGzcZRPFvViN7")
+                .addHeader("X-Naver-Client-Secret","qm06FtUOJ8")
                 .build()
 
-            retrofitClient = Retrofit.Builder()
-                .baseUrl(baseUrl)
-                .addConverterFactory(GsonConverterFactory.create())
-                .client(client)
-                .build()
+            chain.proceed(builder)
+        })
 
-            return retrofitClient
-        }
+        val client = OkHttpClient.Builder()
+            .connectTimeout(100, TimeUnit.SECONDS)
+            .readTimeout(100,TimeUnit.SECONDS)
+            .addInterceptor(baseInterceptor)
+            .build()
+
+        return Retrofit.Builder()
+            .baseUrl(baseUrl)
+            .addConverterFactory(GsonConverterFactory.create())
+            .client(client)
+            .build()
     }
 }
