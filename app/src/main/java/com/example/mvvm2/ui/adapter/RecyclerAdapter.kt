@@ -6,8 +6,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.mvvm2.data.dto.ItemX
 import com.example.mvvm2.databinding.ItemMovieBinding
 
-class RecyclerAdapter : RecyclerView.Adapter<RecyclerAdapter.Holder>() {
-    var movieList: ArrayList<ItemX> = arrayListOf()
+class RecyclerAdapter(private val itemClick : (ItemX) -> Unit) : RecyclerView.Adapter<RecyclerAdapter.Holder>() {
+    private var movieList: ArrayList<ItemX> = arrayListOf()
 
     open class Holder(binding: ItemMovieBinding) : RecyclerView.ViewHolder(binding.root) {
         private val _binding = binding
@@ -22,6 +22,7 @@ class RecyclerAdapter : RecyclerView.Adapter<RecyclerAdapter.Holder>() {
 
     override fun onBindViewHolder(holder: Holder, position: Int) {
         holder.bind(movieList[position])
+        holder.itemView.setOnClickListener{itemClick(movieList[position])}
     }
 
     override fun getItemCount(): Int {

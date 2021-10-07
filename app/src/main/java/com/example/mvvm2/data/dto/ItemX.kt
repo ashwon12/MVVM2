@@ -1,10 +1,12 @@
 package com.example.mvvm2.data.dto
 
 
+import android.os.Parcelable
+import kotlinx.android.parcel.Parcelize
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
-@Serializable
+@Parcelize
 data class ItemX(
     @SerialName("actor")
     val actor: String,
@@ -22,4 +24,4 @@ data class ItemX(
     val title: String,
     @SerialName("userRating")
     val userRating: String
-)
+): Parcelable
