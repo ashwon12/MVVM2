@@ -27,4 +27,10 @@ class RecyclerAdapter : RecyclerView.Adapter<RecyclerAdapter.Holder>() {
     override fun getItemCount(): Int {
         return movieList.size
     }
+
+    fun setItemList(newList : ArrayList<ItemX>){
+        movieList.clear()
+        movieList.addAll(newList)
+        notifyDataSetChanged()
+    }
 }

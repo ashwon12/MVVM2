@@ -14,13 +14,8 @@ object BindingAdapter {
     @JvmStatic
     fun bindMovieList(recyclerView: RecyclerView, movieList: ArrayList<ItemX>?){
         movieList?.run {
-            val layoutManager = LinearLayoutManager(recyclerView.context)
-            val adapter = RecyclerAdapter()
-            recyclerView.layoutManager = layoutManager
-            recyclerView.adapter = adapter
-            (recyclerView.adapter as RecyclerAdapter).movieList = movieList
+            (recyclerView.adapter as RecyclerAdapter).setItemList(movieList)
         }
-
     }
 
     @BindingAdapter("bind_img")
