@@ -6,7 +6,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.mvvm2.data.dto.ItemX
 import com.example.mvvm2.databinding.ItemMovieBinding
 
-class RecyclerAdapter(private val movieItemClick : (ItemX) -> Unit) : RecyclerView.Adapter<RecyclerAdapter.Holder>() {
+class MovieRecyclerAdapter(private val movieItemClick : (ItemX) -> Unit) : RecyclerView.Adapter<MovieRecyclerAdapter.Holder>() {
     private var movieList: ArrayList<ItemX> = arrayListOf()
 
     open class Holder(binding: ItemMovieBinding) : RecyclerView.ViewHolder(binding.root) {

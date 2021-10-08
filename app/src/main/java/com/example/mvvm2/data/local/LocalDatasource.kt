@@ -27,9 +27,9 @@ class LocalDataSourceImpl : LocalDataSource {
         val savedList = getLog()
         if (savedList.contains(keyword)){ //중복 제거
             savedList.remove(keyword)
+        }else if (keyword != ""){
+            savedList.add(0,keyword)
         }
-        savedList.add(keyword)
-
         App.sharedPrefs.saveLog(savedList)
         Log.d("LocalDataSource","save success : $keyword")
         Log.d("LocalDataSource","recent list : $savedList")

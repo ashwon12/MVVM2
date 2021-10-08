@@ -1,38 +1,32 @@
 package com.example.mvvm2.viewmodel
 
 import android.util.Log
+import android.view.View
+import android.widget.Button
 import androidx.databinding.ObservableField
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.example.mvvm2.App
+import androidx.lifecycle.ViewModelProvider
 import com.example.mvvm2.data.dto.ItemX
 import com.example.mvvm2.data.dto.SearchResponse
-
 import com.example.mvvm2.data.repository.MovieRepositoryIpl
-
 import retrofit2.Call
 import retrofit2.Response
 
 
 interface MovieViewModelIpl {
     val movieList : LiveData<ArrayList<ItemX>>
-    val logList : LiveData<ArrayList<String>>
     fun getSearchResponseList()
-    fun getSearchLogList()
 }
 
-class MovieViewModel() : ViewModel(), MovieViewModelIpl {
+class MovieViewModel(private val LogButtonClick : (View) -> Unit) : ViewModel(), MovieViewModelIpl {
     private val repository : MovieRepositoryIpl = MovieRepositoryIpl()
 
     val query = ObservableField<String>()
     private val _movieList : MutableLiveData<ArrayList<ItemX>> = MutableLiveData()
     override val movieList: LiveData<ArrayList<ItemX>>
         get() = _movieList
-
-    private val _logList : MutableLiveData<ArrayList<String>> = MutableLiveData()
-    override val logList: LiveData<ArrayList<String>>
-        get() = _logList
 
     override fun getSearchResponseList() {
         //검색 기록 저장하기
@@ -55,10 +49,17 @@ class MovieViewModel() : ViewModel(), MovieViewModelIpl {
         })
     }
 
-    override fun getSearchLogList() {
-        Log.d("viewModel","getLogList called")
-        val responseLogList = repository.getSearchLogResponse()
-        _logList.postValue(responseLogList)
-        Log.d("MoviewViewModel","getLogList success : $responseLogList")
+    fun logClick(v : View){
+        v.setOnClickListener(LogButtonClick)
+    }
+}
+
+class MovieViewModelFactory(private val LogButtonClick : (View) -> Unit ) : ViewModelProvider.Factory{
+    override fun <T : ViewModel?> create(modelClass: Class<T>): T {
+        return if(modelClass.isAssignableFrom(MovieViewModel::class.java)){
+            MovieViewModel(LogButtonClick) as T
+        } else{
+            throw IllegalArgumentException()
+        }
     }
 }

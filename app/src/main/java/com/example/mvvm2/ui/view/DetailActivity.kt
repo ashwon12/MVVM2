@@ -20,7 +20,6 @@ class DetailActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-
         initBinding()
 
         val detailItem = intent?.extras?.getParcelable<ItemX>("detailItem")

@@ -13,13 +13,15 @@ object BindingAdapter {
     @JvmStatic
     fun bindMovieList(recyclerView: RecyclerView, movieList: ArrayList<ItemX>?){
         movieList?.run {
-            (recyclerView.adapter as RecyclerAdapter).setItemList(movieList)
+            (recyclerView.adapter as MovieRecyclerAdapter).setItemList(movieList)
         }
     }
 
-    fun bindLogList(recyclerView: RecyclerView, logList : ArrayList<String>){
+    @BindingAdapter("bind_logList")
+    @JvmStatic
+    fun bindLogList(recyclerView: RecyclerView, logList : ArrayList<String>?){
         logList?.run {
-            (recyclerView.adapter as RecyclerAdapter)
+            ((recyclerView.adapter) as LogRecyclerAdapter).setLogItemList(logList)
         }
     }
 
