@@ -17,13 +17,14 @@ import retrofit2.Response
 
 interface MovieViewModelIpl {
     val movieList : LiveData<ArrayList<ItemX>>
+    val query : ObservableField<String>
     fun getSearchResponseList()
 }
 
 class MovieViewModel(private val LogButtonClick : (View) -> Unit) : ViewModel(), MovieViewModelIpl {
     private val repository : MovieRepositoryIpl = MovieRepositoryIpl()
 
-    val query = ObservableField<String>()
+    override val query = ObservableField<String>()
     private val _movieList : MutableLiveData<ArrayList<ItemX>> = MutableLiveData()
     override val movieList: LiveData<ArrayList<ItemX>>
         get() = _movieList

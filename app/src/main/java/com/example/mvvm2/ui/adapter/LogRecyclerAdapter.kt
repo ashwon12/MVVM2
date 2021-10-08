@@ -1,12 +1,14 @@
 package com.example.mvvm2.ui.adapter
 
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.example.mvvm2.data.dto.ItemX
 import com.example.mvvm2.databinding.ItemLogBinding
 
-class LogRecyclerAdapter : RecyclerView.Adapter<LogRecyclerAdapter.Holder>() {
-    private var logList: ArrayList<String>? = arrayListOf()
+class LogRecyclerAdapter(private val logItemClick : (String) -> Unit) : RecyclerView.Adapter<LogRecyclerAdapter.Holder>() {
+    private var logList = mutableListOf<String>()
 
     open class Holder(binding : ItemLogBinding) :RecyclerView.ViewHolder(binding.root) {
         private val _binding = binding
@@ -21,21 +23,19 @@ class LogRecyclerAdapter : RecyclerView.Adapter<LogRecyclerAdapter.Holder>() {
     }
 
     override fun onBindViewHolder(holder: Holder, position: Int) {
-        logList?.run {
-            holder.bind(this[position])
-        }
-
+        holder.bind(logList[position])
+        holder.itemView.setOnClickListener{logItemClick(logList[position])}
     }
 
     override fun getItemCount(): Int {
-        return if (logList == null) 0 else logList!!.size
+        return logList.size
     }
 
     fun setLogItemList(newItem : ArrayList<String>){
-        logList?.run {
+        val cutItem = newItem.subList(0,5)
+        logList.run {
             clear()
-            addAll(newItem)
+            addAll(cutItem)
         }
-        logList?.subList(0,4)
     }
 }

@@ -1,5 +1,6 @@
 package com.example.mvvm2.ui.view
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.databinding.DataBindingUtil
@@ -26,7 +27,12 @@ class LogActivity : AppCompatActivity() {
     }
 
     private fun initRecyler() {
-        logRecyclerAdapter = LogRecyclerAdapter()
+        logRecyclerAdapter = LogRecyclerAdapter(){
+            val intent = Intent(this, MainActivity::class.java).apply {
+                putExtra("query",it)
+            }
+            startActivity(intent)
+        }
         binding.rvLog.adapter = logRecyclerAdapter
         binding.rvLog.layoutManager = LinearLayoutManager(this)
     }
