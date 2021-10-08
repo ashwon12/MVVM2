@@ -2,6 +2,7 @@ package com.example.mvvm2.data.remote
 
 import android.util.Log
 import com.example.mvvm2.data.dto.SearchResponse
+import com.example.mvvm2.data.remote.api.RetrofitClient
 import com.example.mvvm2.data.remote.api.SearchAPI
 import retrofit2.Call
 

@@ -1,4 +1,4 @@
-package com.example.mvvm2.data.remote
+package com.example.mvvm2.data.remote.api
 
 import android.util.Log
 import okhttp3.Interceptor

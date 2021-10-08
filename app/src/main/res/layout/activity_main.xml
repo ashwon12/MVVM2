@@ -32,12 +32,23 @@
             android:id="@+id/btn_search"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="8dp"
+            android:layout_marginEnd="3dp"
             android:text="@string/serach_button"
-            android:onClick="@{() -> viewModel.getList()}"
+            android:onClick="@{() -> viewModel.getSearchResponseList()}"
             app:layout_constraintBottom_toBottomOf="@+id/et_keyword"
-            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/btn_log"
             app:layout_constraintTop_toTopOf="@+id/et_keyword" />
+        
+        <Button
+            android:id="@+id/btn_log"
+            android:layout_width="0dp"
+            app:layout_constraintTop_toTopOf="@id/btn_search"
+            android:layout_height="wrap_content"
+            android:text="@string/log_button"
+            android:layout_marginEnd="8dp"
+            android:onClick="@{() -> viewModel.getSearchLogList()}"
+            app:layout_constraintBottom_toBottomOf="@id/btn_search"
+            app:layout_constraintEnd_toEndOf="parent"/>
 
         <View
             android:id="@+id/view"

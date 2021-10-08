@@ -17,6 +17,12 @@ object BindingAdapter {
         }
     }
 
+    fun bindLogList(recyclerView: RecyclerView, logList : ArrayList<String>){
+        logList?.run {
+            (recyclerView.adapter as RecyclerAdapter)
+        }
+    }
+
     @BindingAdapter("bind_img")
     @JvmStatic
     fun bindImage(imageView: ImageView, imgUrl : String){
