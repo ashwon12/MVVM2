@@ -33,7 +33,7 @@
             app:layout_constraintStart_toEndOf="@id/item_iv"
             app:layout_constraintTop_toTopOf="@id/item_iv"
             app:layout_constraintEnd_toEndOf="parent"
-            android:textSize="24dp"
+            android:textSize="18dp"
             android:textStyle="bold"
             android:layout_margin="16dp"/>
 

@@ -51,7 +51,7 @@ class MovieViewModel(private val LogButtonClick : (View) -> Unit) : ViewModel(),
     }
 
     fun logClick(v : View){
-        v.setOnClickListener(LogButtonClick)
+        LogButtonClick(v)
     }
 }
 
