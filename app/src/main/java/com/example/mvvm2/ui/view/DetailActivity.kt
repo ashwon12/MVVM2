@@ -13,13 +13,14 @@ import com.example.mvvm2.viewmodel.DetailViewModel
 
 class DetailActivity : AppCompatActivity() {
 
+
     private lateinit var binding : ActivityDetailBinding
     private lateinit var detailViewModel: DetailViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        initViewModel()
+
         initBinding()
 
         val detailItem = intent?.extras?.getParcelable<ItemX>("detailItem")
@@ -27,14 +28,14 @@ class DetailActivity : AppCompatActivity() {
         detailItem?.let { detailViewModel.updateItem(it) }
     }
 
-    private fun initViewModel() {
+    private fun initBinding() {
         detailViewModel = ViewModelProvider(this, ViewModelProvider.NewInstanceFactory())
             .get(DetailViewModel::class.java)
-    }
 
-    private fun initBinding() {
-        binding = DataBindingUtil.setContentView(this, R.layout.activity_detail)
-        binding.detailViewModel = detailViewModel
-        binding.lifecycleOwner = this
+        detailViewModel.detailItem.observe(this, Observer {
+            binding = DataBindingUtil.setContentView(this, R.layout.activity_detail)
+            binding.detailViewModel = detailViewModel
+            binding.lifecycleOwner = this
+        })
     }
 }
