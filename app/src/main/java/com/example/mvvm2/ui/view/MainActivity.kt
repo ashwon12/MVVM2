@@ -7,7 +7,6 @@ import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.mvvm2.R
-import com.example.mvvm2.data.dto.ItemX
 import com.example.mvvm2.ui.adapter.RecyclerAdapter
 import com.example.mvvm2.databinding.ActivityMainBinding
 import com.example.mvvm2.viewmodel.MovieViewModel

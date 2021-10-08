@@ -1,9 +1,8 @@
-package com.example.mvvm2.data.retrofit
+package com.example.mvvm2.data.remote
 
 import android.util.Log
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
-import okhttp3.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import java.util.concurrent.TimeUnit

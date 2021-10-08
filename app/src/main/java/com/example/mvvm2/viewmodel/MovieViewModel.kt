@@ -5,13 +5,17 @@ import androidx.databinding.ObservableField
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
 import com.example.mvvm2.data.dto.ItemX
 import com.example.mvvm2.data.dto.SearchResponse
-import com.example.mvvm2.data.retrofit.RetrofitClient
+import com.example.mvvm2.data.remote.RetrofitClient
 
-import com.example.mvvm2.data.retrofit.api.SearchAPI
+import com.example.mvvm2.data.remote.api.SearchAPI
+import com.example.mvvm2.data.repository.MovieRepositoryIpl
+import com.example.mvvm2.data.repository.Repository
 import retrofit2.Call
 import retrofit2.Response
+import java.lang.IllegalArgumentException
 
 
 interface MovieViewModelIpl {
@@ -20,6 +24,7 @@ interface MovieViewModelIpl {
 }
 
 class MovieViewModel() : ViewModel(), MovieViewModelIpl {
+    private val repository : MovieRepositoryIpl = MovieRepositoryIpl()
 
     val query = ObservableField<String>()
     private val _movieList : MutableLiveData<ArrayList<ItemX>> = MutableLiveData()
@@ -27,10 +32,8 @@ class MovieViewModel() : ViewModel(), MovieViewModelIpl {
         get() = _movieList
 
     override fun getList() {
-        val instance = RetrofitClient.getClient().create(SearchAPI::class.java)
-        val call = instance.getSearchResponse(query.get().toString())
-
-        call.enqueue(object : retrofit2.Callback<SearchResponse>{
+        repository.getSearchResponse(query = query.get().toString())
+            .enqueue(object : retrofit2.Callback<SearchResponse>{
             override fun onResponse(
                 call: Call<SearchResponse>,
                 response: Response<SearchResponse>
@@ -45,5 +48,4 @@ class MovieViewModel() : ViewModel(), MovieViewModelIpl {
             }
         })
     }
-
 }
