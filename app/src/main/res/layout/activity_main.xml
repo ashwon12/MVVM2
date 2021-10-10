@@ -2,6 +2,7 @@
 <layout>
 
     <data>
+        <import type="android.view.View" />
         <import type="android.widget.EditText"/>
         <variable
             name="viewModel"
@@ -75,6 +76,16 @@
             app:layout_constraintTop_toBottomOf="@id/view"
             bind_movieList="@{viewModel.movieList}"
             />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:gravity="center"
+            android:text="@string/empty_text"
+            android:visibility="@{viewModel.emptyText ? View.VISIBLE : View.INVISIBLE}"
+            app:layout_constraintTop_toBottomOf="@id/view"
+            app:layout_constraintBottom_toBottomOf="parent"
+           />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

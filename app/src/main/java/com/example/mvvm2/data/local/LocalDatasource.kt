@@ -25,13 +25,12 @@ class LocalDataSourceImpl : LocalDataSource {
 
     override fun saveLog(keyword: String) {
         val savedList = getLog()
-        if(keyword.isNotBlank()){
-            if(savedList.contains(keyword)){
-                savedList.remove(keyword)
-            }
-            savedList.add(0,keyword)
-            App.sharedPrefs.saveLog(savedList)
+        if(savedList.contains(keyword)){ // 중복 체크
+            savedList.remove(keyword)
         }
+        savedList.add(0,keyword)
+        App.sharedPrefs.saveLog(savedList)
+
         Log.d("LocalDataSource","save success : $keyword")
         Log.d("LocalDataSource","recent list : $savedList")
     }
