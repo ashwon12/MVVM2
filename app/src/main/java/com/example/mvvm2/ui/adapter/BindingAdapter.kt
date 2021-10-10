@@ -1,5 +1,6 @@
 package com.example.mvvm2.ui.adapter
 
+import android.util.Log
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.databinding.BindingAdapter
@@ -13,7 +14,7 @@ object BindingAdapter {
     @JvmStatic
     fun bindMovieList(recyclerView: RecyclerView, movieList: ArrayList<ItemX>?){
         movieList?.run {
-            (recyclerView.adapter as MovieRecyclerAdapter).setItemList(movieList)
+            (recyclerView.adapter as MovieRecyclerAdapter).setItemList(this)
         }
     }
 
@@ -21,7 +22,7 @@ object BindingAdapter {
     @JvmStatic
     fun bindLogList(recyclerView: RecyclerView, logList : ArrayList<String>?){
         logList?.run {
-            ((recyclerView.adapter) as LogRecyclerAdapter).setLogItemList(logList)
+            ((recyclerView.adapter) as LogRecyclerAdapter).setLogItemList(this)
         }
     }
 
@@ -43,7 +44,7 @@ object BindingAdapter {
     @BindingAdapter("bind_title")
     @JvmStatic
     fun bindTitle(tvTitle : TextView, title : String){
-        val newTitle  = title.replace("<b>","").replace("</b>","")
+        val newTitle  = title.replace("<b>","").replace("</b>","").replace("&amp;","")
         tvTitle.text = newTitle
     }
 }

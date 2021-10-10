@@ -10,7 +10,6 @@ class SharedPreference(context : Context) {
 
     private val sharedPreference =context.getSharedPreferences("searchLog",MODE_PRIVATE)
     private val editor  = sharedPreference.edit()
-    private val searchLogList = arrayListOf<String>()
 
     fun saveLog(searchList : ArrayList<String>){
         editor.putString("searchLog",JSONArray(searchList).toString()).apply()

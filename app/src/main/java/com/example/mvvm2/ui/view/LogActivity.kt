@@ -3,6 +3,7 @@ package com.example.mvvm2.ui.view
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -38,11 +39,9 @@ class LogActivity : AppCompatActivity() {
     }
 
     private fun initBinding() {
+        logViewModel = ViewModelProvider(this, ViewModelProvider.NewInstanceFactory()).get(LogViewModel::class.java)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_log)
-       logViewModel = ViewModelProvider(this, ViewModelProvider.NewInstanceFactory()).get(LogViewModel::class.java)
-       logViewModel.logList.observe(this, Observer {
-           binding.viewmodel = logViewModel
-           binding.lifecycleOwner = this
-       })
+        binding.viewmodel = logViewModel
+        binding.lifecycleOwner = this
     }
 }

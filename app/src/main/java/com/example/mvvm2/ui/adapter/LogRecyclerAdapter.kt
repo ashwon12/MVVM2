@@ -1,5 +1,6 @@
 package com.example.mvvm2.ui.adapter
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -8,7 +9,7 @@ import com.example.mvvm2.data.dto.ItemX
 import com.example.mvvm2.databinding.ItemLogBinding
 
 class LogRecyclerAdapter(private val logItemClick : (String) -> Unit) : RecyclerView.Adapter<LogRecyclerAdapter.Holder>() {
-    private var logList = mutableListOf<String>()
+    private var logList : ArrayList<String> = arrayListOf()
 
     open class Holder(binding : ItemLogBinding) :RecyclerView.ViewHolder(binding.root) {
         private val _binding = binding
@@ -32,10 +33,12 @@ class LogRecyclerAdapter(private val logItemClick : (String) -> Unit) : Recycler
     }
 
     fun setLogItemList(newItem : ArrayList<String>){
-        val cutItem = newItem.subList(0,5)
+        val lastIndex = if(newItem.size <5) newItem.size else 5
+        val cutItem = newItem.subList(0,lastIndex)
         logList.run {
             clear()
             addAll(cutItem)
         }
+        notifyDataSetChanged()
     }
 }
