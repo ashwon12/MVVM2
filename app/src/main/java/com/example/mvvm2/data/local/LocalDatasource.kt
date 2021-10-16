@@ -2,6 +2,7 @@ package com.example.mvvm2.data.local
 
 import android.util.Log
 import com.example.mvvm2.App
+import com.example.mvvm2.data.SharedPref
 import org.json.JSONArray
 
 interface LocalDataSource {
@@ -11,7 +12,7 @@ interface LocalDataSource {
 
 class LocalDataSourceImpl : LocalDataSource {
     override fun getLog(): ArrayList<String> {
-        val savedList = App.sharedPrefs.getLog()
+        val savedList = SharedPref.getLog()
         val logList = arrayListOf<String>()
 
         savedList?.run {
@@ -29,7 +30,7 @@ class LocalDataSourceImpl : LocalDataSource {
             savedList.remove(keyword)
         }
         savedList.add(0,keyword)
-        App.sharedPrefs.saveLog(savedList)
+        SharedPref.saveLog(savedList)
 
         Log.d("LocalDataSource","save success : $keyword")
         Log.d("LocalDataSource","recent list : $savedList")

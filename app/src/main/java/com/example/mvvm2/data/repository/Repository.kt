@@ -26,7 +26,6 @@ class MovieRepositoryIpl() : Repository {
     override fun getSearchResponse(
         query: String
     ): Call<SearchResponse> {
-        Log.d("MovieRepositoryIpl", "getSearchResponse called")
         return remoteDatasource.getSearchResponse(query)
     }
 

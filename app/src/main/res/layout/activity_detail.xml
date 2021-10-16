@@ -4,7 +4,7 @@
     <data>
         <variable
             name="detailViewModel"
-            type="com.example.mvvm2.viewmodel.DetailViewModel" />
+            type="com.example.mvvm2.ui.detail.DetailViewModel" />
     </data>
 
 

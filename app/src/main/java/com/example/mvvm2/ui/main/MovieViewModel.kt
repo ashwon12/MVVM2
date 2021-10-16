@@ -45,5 +45,10 @@ class MovieViewModel : ViewModel() {
                 })
         }
     }
+
+    fun searchByLog(query: String) {
+        this.query.value = query
+        this.search()
+    }
 }
 
