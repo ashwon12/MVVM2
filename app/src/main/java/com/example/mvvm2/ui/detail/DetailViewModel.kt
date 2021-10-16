@@ -1,4 +1,4 @@
-package com.example.mvvm2.viewmodel
+package com.example.mvvm2.ui.detail
 
 
 import androidx.lifecycle.LiveData
@@ -13,6 +13,6 @@ class DetailViewModel : ViewModel() {
         get() =_detailItem
 
     fun updateItem(detail : ItemX){
-        _detailItem.postValue(detail)
+        _detailItem.value = detail
     }
 }
