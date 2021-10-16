@@ -13,10 +13,6 @@ class MovieViewModel : ViewModel() {
     private val repository: MovieRepositoryIpl = MovieRepositoryIpl()
     val query: MutableLiveData<String> = MutableLiveData()
 
-    private val _emptyText: MutableLiveData<Boolean> = MutableLiveData()
-    val emptyText: LiveData<Boolean>
-        get() = _emptyText
-
     private val _movieList: MutableLiveData<ArrayList<ItemX>> = MutableLiveData()
     val movieList: LiveData<ArrayList<ItemX>>
         get() = _movieList
@@ -39,13 +35,7 @@ class MovieViewModel : ViewModel() {
                         call: Call<SearchResponse>,
                         response: Response<SearchResponse>
                     ) {
-                        val resultList = response.body()?.items?: arrayListOf()
-
-                        resultList?.run {
-                            _movieList.value = this
-                            _emptyText.value = this.size == 0
-                        }
-
+                        _movieList.value = response.body()?.items ?: arrayListOf()
                         repository.saveSearchLog(it)
                     }
 

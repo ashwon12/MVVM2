@@ -4,14 +4,18 @@ import android.app.Application
 import com.example.mvvm2.data.local.SharedPreference
 
 class App : Application() {
-    companion object{
-        lateinit var sharedPrefs: SharedPreference
-        lateinit var instance : App
-    }
+    private lateinit var sharedPrefs: SharedPreference
 
     override fun onCreate() {
         super.onCreate()
-        instance = this
         sharedPrefs = SharedPreference(applicationContext)
+    }
+
+    fun getInstance(): App {
+        return this;
+    }
+
+    fun getShared(): SharedPreference {
+        return sharedPrefs;
     }
 }
