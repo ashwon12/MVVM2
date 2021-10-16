@@ -28,23 +28,23 @@ object BindingAdapter {
 
     @BindingAdapter("bind_img")
     @JvmStatic
-    fun bindImage(imageView: ImageView, imgUrl : String){
-        Glide
-            .with(imageView.context)
+    fun bindImage(imageView: ImageView, imgUrl : String?){
+        Glide.with(imageView.context)
             .load(imgUrl)
             .into(imageView)
+
     }
 
     @BindingAdapter("bind_rating")
     @JvmStatic
-    fun bindRating(tvRate : TextView, rate : String){
-        tvRate.text = "평점 : $rate"
+    fun bindRating(tvRate : TextView, rate : String?){
+        tvRate.text = "평점 : ${rate ?: ""}"
     }
 
     @BindingAdapter("bind_title")
     @JvmStatic
-    fun bindTitle(tvTitle : TextView, title : String){
-        val newTitle  = title.replace("<b>","").replace("</b>","").replace("&amp;","")
+    fun bindTitle(tvTitle : TextView, title : String?){
+        val newTitle  = title?.run { replace("<b>","").replace("</b>","").replace("&amp;","") } ?: ""
         tvTitle.text = newTitle
     }
 }
