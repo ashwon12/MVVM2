@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <data>
+        <variable
+            name="detailViewModel"
+            type="com.example.mvvm2.viewmodel.DetailViewModel" />
+    </data>
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:foregroundGravity="center">
+
+        <ImageView
+            android:id="@+id/iv_detail"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            bind_img="@{detailViewModel.detailItem.image}"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tv_detail_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:textSize="20dp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="@id/iv_detail"
+            bind_title="@{detailViewModel.detailItem.title}"
+            app:layout_constraintStart_toStartOf="@id/iv_detail"
+            app:layout_constraintTop_toBottomOf="@id/iv_detail" />
+
+        <TextView
+            android:id="@+id/tv_detail_rating"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:gravity="center"
+            bind_rating="@{detailViewModel.detailItem.userRating}"
+            app:layout_constraintTop_toBottomOf="@id/tv_detail_title" />
+
+        <TextView
+            android:id="@+id/tv_detail_actor"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:gravity="center"
+            android:text="@{detailViewModel.detailItem.director}"
+            app:layout_constraintTop_toBottomOf="@id/tv_detail_rating" />
+
+        <TextView
+            android:id="@+id/tv_detail_director"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:gravity="center"
+            android:text="@{detailViewModel.detailItem.actor}"
+            app:layout_constraintTop_toBottomOf="@id/tv_detail_actor" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+</layout>
