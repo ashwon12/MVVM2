@@ -74,7 +74,7 @@
             android:layout_height="0dp"
             android:layout_marginTop="8dp"
             android:orientation="vertical"
-            android:visibility="@{viewModel.movieList.size() != 0}"
+            android:visibility="@{viewModel.movieList.size() != 0 ? View.VISIBLE : View.GONE}"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -86,7 +86,7 @@
             android:layout_height="0dp"
             android:gravity="center"
             android:text="@string/empty_text"
-            android:visibility="@{viewModel.movieList.size() == 0}"
+            android:visibility="@{viewModel.movieList.size() == 0 ? View.VISIBLE : View.GONE}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintTop_toBottomOf="@id/view" />
 

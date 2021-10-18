@@ -20,8 +20,8 @@ class DetailActivity : AppCompatActivity() {
 
         val detailItem = intent?.extras?.getParcelable<ItemX>("detailItem")
 
-        initBinding()
         initViewModel()
+        initBinding()
 
         detailItem?.let { detailViewModel.updateItem(it) } ?: run {
             Toast.makeText(applicationContext, "올바르지 않은 접근입니다.", Toast.LENGTH_SHORT).show()

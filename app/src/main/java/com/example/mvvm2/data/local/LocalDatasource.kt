@@ -1,8 +1,6 @@
 package com.example.mvvm2.data.local
 
 import android.util.Log
-import com.example.mvvm2.App
-import com.example.mvvm2.data.SharedPref
 import org.json.JSONArray
 
 interface LocalDataSource {

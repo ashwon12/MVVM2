@@ -1,4 +1,4 @@
-package com.example.mvvm2.data
+package com.example.mvvm2.data.local
 
 import android.content.Context
 import android.content.Context.MODE_PRIVATE
@@ -7,11 +7,12 @@ import org.json.JSONArray
 
 object SharedPref {
     private lateinit var sharedPreference:SharedPreferences
-    private val editor  = sharedPreference.edit()
+    private lateinit var editor : SharedPreferences.Editor
     private const val prefId: String = "wodnjs"
 
     fun setPref(context: Context) {
-        context.getSharedPreferences(prefId, MODE_PRIVATE)
+        sharedPreference = context.getSharedPreferences(prefId, MODE_PRIVATE)
+        editor= sharedPreference.edit()
     }
 
     fun saveLog(searchList : ArrayList<String>){
