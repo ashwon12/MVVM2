@@ -40,7 +40,8 @@ class LogActivity : AppCompatActivity() {
             val intent = Intent(this, MainActivity::class.java).apply {
                 putExtra("query",it)
             }
-            startActivity(intent)
+            setResult(1004, intent)
+            finish()
         }
     }
 }

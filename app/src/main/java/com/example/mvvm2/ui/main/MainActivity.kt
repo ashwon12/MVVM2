@@ -3,7 +3,11 @@ package com.example.mvvm2.ui.main
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.widget.Toast
+import androidx.activity.result.ActivityResultLauncher
+import androidx.activity.result.contract.ActivityResultContract
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
 import com.example.mvvm2.R
@@ -15,12 +19,23 @@ import com.example.mvvm2.ui.log.LogActivity
 class MainActivity : AppCompatActivity(){
     private lateinit var binding : ActivityMainBinding
     private lateinit var movieViewModel: MovieViewModel
+    private lateinit var searchLogKeyword : ActivityResultLauncher<Intent>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        initBinding()
         initViewModel()
+        initBinding()
         initRecycler()
+
+        searchLogKeyword = registerForActivityResult(ActivityResultContracts.StartActivityForResult()){
+            if (it.resultCode == 1004) { // 로그 키워드 전달 받았을 때
+                val logQuery = it.data?.getStringExtra("query")
+                logQuery?.let { query ->
+                    movieViewModel.searchByLog(query)
+                }
+            }
+
+        }
     }
 
     private fun initBinding() {
@@ -32,7 +47,6 @@ class MainActivity : AppCompatActivity(){
 
     private fun initViewModel() {
         movieViewModel = ViewModelProvider(this).get(MovieViewModel::class.java)
-
         movieViewModel.showToast.observe(this) {
             showToast(it)
         }
@@ -49,7 +63,7 @@ class MainActivity : AppCompatActivity(){
 
     fun showLogActivity() {
         val intent = Intent(this, LogActivity::class.java)
-        startActivity(intent)
+        searchLogKeyword.launch(intent)
     }
 
     private fun showToast(msg: String) {

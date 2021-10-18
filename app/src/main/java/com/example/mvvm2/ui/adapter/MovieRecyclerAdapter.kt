@@ -1,5 +1,6 @@
 package com.example.mvvm2.ui.adapter
 
+import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
@@ -15,7 +16,7 @@ class MovieRecyclerAdapter(private val movieItemClick: (ItemX) -> Unit) :
     ) : RecyclerView.ViewHolder(binding.root) {
         fun bind(movieItem: ItemX) {
             binding.searchItem = movieItem
-            binding.root.setOnClickListener { movieItemClick }
+            binding.root.setOnClickListener { movieItemClick(movieItem) }
         }
     }
 
@@ -32,6 +33,7 @@ class MovieRecyclerAdapter(private val movieItemClick: (ItemX) -> Unit) :
         return movieList.size
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     fun setItemList(newList: ArrayList<ItemX>) {
         movieList.clear()
         movieList.addAll(newList)

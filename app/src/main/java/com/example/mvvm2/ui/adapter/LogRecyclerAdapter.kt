@@ -8,13 +8,14 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.mvvm2.data.dto.ItemX
 import com.example.mvvm2.databinding.ItemLogBinding
 
-class LogRecyclerAdapter(private val logItemClick : (String) -> Unit) : RecyclerView.Adapter<LogRecyclerAdapter.Holder>() {
-    private var logList : ArrayList<String> = arrayListOf()
+class LogRecyclerAdapter(private val logItemClick: (String) -> Unit) :
+    RecyclerView.Adapter<LogRecyclerAdapter.Holder>() {
+    private var logList: ArrayList<String> = arrayListOf()
 
-    open class Holder(binding : ItemLogBinding) :RecyclerView.ViewHolder(binding.root) {
-        private val _binding = binding
-        fun bind(logItem : String){
-            _binding.searchLog = logItem
+    inner class Holder(private val binding: ItemLogBinding) : RecyclerView.ViewHolder(binding.root) {
+        fun bind(logItem: String) {
+            binding.searchLog = logItem
+            binding.root.setOnClickListener {logItemClick(logItem) }
         }
     }
 
@@ -25,16 +26,15 @@ class LogRecyclerAdapter(private val logItemClick : (String) -> Unit) : Recycler
 
     override fun onBindViewHolder(holder: Holder, position: Int) {
         holder.bind(logList[position])
-        holder.itemView.setOnClickListener{logItemClick(logList[position])}
     }
 
     override fun getItemCount(): Int {
         return logList.size
     }
 
-    fun setLogItemList(newItem : ArrayList<String>){
-        val lastIndex = if(newItem.size <5) newItem.size else 5
-        val cutItem = newItem.subList(0,lastIndex)
+    fun setLogItemList(newItem: ArrayList<String>) {
+        val lastIndex = if (newItem.size < 5) newItem.size else 5
+        val cutItem = newItem.subList(0, lastIndex)
         logList.run {
             clear()
             addAll(cutItem)
