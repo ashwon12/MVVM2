@@ -3,14 +3,14 @@ package com.example.mvvm2.ui.main
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
-import androidx.activity.result.contract.ActivityResultContract
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.databinding.DataBindingUtil
-import androidx.lifecycle.ViewModelProvider
 import com.example.mvvm2.R
+import com.example.mvvm2.data.local.LocalDataSourceImpl
+import com.example.mvvm2.data.remote.RemoteDatasourceIpl
+import com.example.mvvm2.data.repository.MovieRepositoryIpl
 import com.example.mvvm2.ui.adapter.MovieRecyclerAdapter
 import com.example.mvvm2.databinding.ActivityMainBinding
 import com.example.mvvm2.ui.detail.DetailActivity
@@ -46,7 +46,9 @@ class MainActivity : AppCompatActivity(){
     }
 
     private fun initViewModel() {
-        movieViewModel = ViewModelProvider(this).get(MovieViewModel::class.java)
+        movieViewModel = MovieViewModel(MovieRepositoryIpl(RemoteDatasourceIpl(),
+            LocalDataSourceImpl(applicationContext.getSharedPreferences("searchLog", MODE_PRIVATE))
+        ))
         movieViewModel.showToast.observe(this) {
             showToast(it)
         }

@@ -5,12 +5,12 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.mvvm2.data.dto.ItemX
 import com.example.mvvm2.data.dto.SearchResponse
+import com.example.mvvm2.data.repository.MovieRepository
 import com.example.mvvm2.data.repository.MovieRepositoryIpl
 import retrofit2.Call
 import retrofit2.Response
 
-class MovieViewModel : ViewModel() {
-    private val repository: MovieRepositoryIpl = MovieRepositoryIpl()
+class MovieViewModel(private val movieRepository : MovieRepository) : ViewModel() {
     val query: MutableLiveData<String> = MutableLiveData()
 
     private val _movieList: MutableLiveData<ArrayList<ItemX>> = MutableLiveData()
@@ -29,14 +29,14 @@ class MovieViewModel : ViewModel() {
 
         //입력 값에 대한 데이터 가져오기
         query?.let {
-            repository.getSearchResponse(query = it)
+            movieRepository.getSearchResponse(query = it)
                 .enqueue(object : retrofit2.Callback<SearchResponse> {
                     override fun onResponse(
                         call: Call<SearchResponse>,
                         response: Response<SearchResponse>
                     ) {
                         _movieList.value = response.body()?.items ?: arrayListOf()
-                        repository.saveSearchLog(it)
+                        movieRepository.saveSearchLog(it)
                     }
 
                     override fun onFailure(call: Call<SearchResponse>, t: Throwable) {
