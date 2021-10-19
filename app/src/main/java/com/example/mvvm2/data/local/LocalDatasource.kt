@@ -3,17 +3,19 @@ package com.example.mvvm2.data.local
 import android.content.SharedPreferences
 import android.util.Log
 import org.json.JSONArray
+import javax.inject.Inject
 
 interface LocalDataSource {
     fun getLog() : ArrayList<String>
     fun saveLog(keyword: String)
 }
 
-class LocalDataSourceImpl(private val sharedPref: SharedPreferences) : LocalDataSource {
-    private val editor = sharedPref.edit()
+
+class LocalDataSourceImpl @Inject constructor(private val sharedPreferences: SharedPreferences) : LocalDataSource {
+    private val editor  = sharedPreferences.edit()
 
     override fun getLog(): ArrayList<String> {
-        val savedList = sharedPref.getString("searchLog",null)
+        val savedList = sharedPreferences.getString("searchLog",null)
         val logList = arrayListOf<String>()
 
         savedList?.run {
@@ -32,8 +34,5 @@ class LocalDataSourceImpl(private val sharedPref: SharedPreferences) : LocalData
         }
         savedList.add(0,keyword)
         editor.putString("searchLog", JSONArray(savedList).toString()).apply()
-
-        Log.d("LocalDataSource","save success : $keyword")
-        Log.d("LocalDataSource","recent list : $savedList")
     }
 }

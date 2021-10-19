@@ -2,6 +2,7 @@ package com.example.mvvm2.data.repository
 
 import android.util.Log
 import com.example.mvvm2.data.dto.SearchResponse
+import com.example.mvvm2.data.local.LocalDataSource
 import com.example.mvvm2.data.local.LocalDataSourceImpl
 import com.example.mvvm2.data.remote.RemoteDatasource
 import com.example.mvvm2.data.remote.RemoteDatasourceIpl
@@ -13,7 +14,7 @@ interface MovieRepository {
     fun saveSearchLog(keyword : String)
 }
 
-class MovieRepositoryIpl(private val remoteDatasource: RemoteDatasourceIpl, private val localDatasource : LocalDataSourceImpl) : MovieRepository {
+class MovieRepositoryIpl(private val remoteDatasource: RemoteDatasource, private val localDatasource : LocalDataSource) : MovieRepository {
     override fun getSearchResponse(
         query: String
     ): Call<SearchResponse> {
