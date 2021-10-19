@@ -6,19 +6,20 @@ import android.os.Bundle
 import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.activity.viewModels
 import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.ViewModelProvider
 import com.example.mvvm2.R
-import com.example.mvvm2.data.local.LocalDataSourceImpl
-import com.example.mvvm2.data.remote.RemoteDatasourceIpl
-import com.example.mvvm2.data.repository.MovieRepositoryIpl
-import com.example.mvvm2.ui.adapter.MovieRecyclerAdapter
 import com.example.mvvm2.databinding.ActivityMainBinding
+import com.example.mvvm2.ui.adapter.MovieRecyclerAdapter
 import com.example.mvvm2.ui.detail.DetailActivity
 import com.example.mvvm2.ui.log.LogActivity
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MainActivity : AppCompatActivity(){
     private lateinit var binding : ActivityMainBinding
-    private lateinit var movieViewModel: MovieViewModel
+    private val movieViewModel: MovieViewModel by viewModels<MovieViewModel>()
     private lateinit var searchLogKeyword : ActivityResultLauncher<Intent>
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -46,9 +47,6 @@ class MainActivity : AppCompatActivity(){
     }
 
     private fun initViewModel() {
-        movieViewModel = MovieViewModel(MovieRepositoryIpl(RemoteDatasourceIpl(),
-            LocalDataSourceImpl(applicationContext.getSharedPreferences("searchLog", MODE_PRIVATE))
-        ))
         movieViewModel.showToast.observe(this) {
             showToast(it)
         }
