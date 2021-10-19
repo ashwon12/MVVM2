@@ -7,10 +7,13 @@ import com.example.mvvm2.data.dto.ItemX
 import com.example.mvvm2.data.dto.SearchResponse
 import com.example.mvvm2.data.repository.MovieRepository
 import com.example.mvvm2.data.repository.MovieRepositoryIpl
+import dagger.hilt.android.lifecycle.HiltViewModel
 import retrofit2.Call
 import retrofit2.Response
+import javax.inject.Inject
 
-class MovieViewModel(private val movieRepository : MovieRepository) : ViewModel() {
+@HiltViewModel
+class MovieViewModel @Inject constructor(private val movieRepository : MovieRepository) : ViewModel() {
     val query: MutableLiveData<String> = MutableLiveData()
 
     private val _movieList: MutableLiveData<ArrayList<ItemX>> = MutableLiveData()

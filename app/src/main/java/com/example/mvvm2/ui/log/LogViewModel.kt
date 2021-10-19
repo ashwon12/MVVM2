@@ -4,9 +4,12 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.mvvm2.data.repository.LogRepository
-import com.example.mvvm2.data.repository.MovieRepositoryIpl
+import dagger.hilt.android.lifecycle.HiltViewModel
+import javax.inject.Inject
 
-class LogViewModel(private val logRepository : LogRepository ) : ViewModel() {
+
+@HiltViewModel
+class LogViewModel @Inject constructor(private val logRepository : LogRepository): ViewModel() {
     private val _logList: MutableLiveData<ArrayList<String>> = MutableLiveData()
     val logList: LiveData<ArrayList<String>>
         get() = _logList
