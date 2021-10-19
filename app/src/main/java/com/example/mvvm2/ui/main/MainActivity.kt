@@ -7,9 +7,8 @@ import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
-import androidx.databinding.DataBindingUtil
-import androidx.lifecycle.ViewModelProvider
 import com.example.mvvm2.R
+import com.example.mvvm2.base.BaseActivity
 import com.example.mvvm2.databinding.ActivityMainBinding
 import com.example.mvvm2.ui.adapter.MovieRecyclerAdapter
 import com.example.mvvm2.ui.detail.DetailActivity
@@ -17,9 +16,8 @@ import com.example.mvvm2.ui.log.LogActivity
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class MainActivity : AppCompatActivity(){
-    private lateinit var binding : ActivityMainBinding
-    private val movieViewModel: MovieViewModel by viewModels<MovieViewModel>()
+class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main){
+    private val movieViewModel: MovieViewModel by viewModels()
     private lateinit var searchLogKeyword : ActivityResultLauncher<Intent>
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -35,15 +33,12 @@ class MainActivity : AppCompatActivity(){
                     movieViewModel.searchByLog(query)
                 }
             }
-
         }
     }
 
     private fun initBinding() {
-        binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
         binding.activity = this
         binding.viewModel = movieViewModel
-        binding.lifecycleOwner = this
     }
 
     private fun initViewModel() {
@@ -64,9 +59,5 @@ class MainActivity : AppCompatActivity(){
     fun showLogActivity() {
         val intent = Intent(this, LogActivity::class.java)
         searchLogKeyword.launch(intent)
-    }
-
-    private fun showToast(msg: String) {
-        Toast.makeText(applicationContext, msg, Toast.LENGTH_SHORT).show();
     }
 }
