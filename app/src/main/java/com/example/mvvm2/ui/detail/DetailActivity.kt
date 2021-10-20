@@ -24,7 +24,7 @@ class DetailActivity : BaseActivity<ActivityDetailBinding>(R.layout.activity_det
         initBinding()
 
         detailItem?.let { detailViewModel.updateItem(it) } ?: run {
-            Toast.makeText(applicationContext, "올바르지 않은 접근입니다.", Toast.LENGTH_SHORT).show()
+            showToast("올바르지 못한 접근입니다.")
             finish()
         }
     }
